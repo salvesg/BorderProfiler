@@ -1,3 +1,10 @@
 # Ignore opencv build stuff
 external/opencv/build
-opencv_build
+
+# Ignore own stuff
+bin
+lib
+build
+
+# Save me from the emacs save files
+*~

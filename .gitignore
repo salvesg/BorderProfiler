@@ -1,0 +1,3 @@
+# Ignore opencv build stuff
+external/opencv/build
+opencv_build

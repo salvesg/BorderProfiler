@@ -3,8 +3,14 @@ external/opencv/build
 
 # Ignore own stuff
 bin
-lib
+lib/*.a
+lib/*.so
 build
+
+pictures
+!pictures/cat.png
+!pictures/bike.jpg
+!pictures/circle.jpg
 
 # Save me from the emacs save files
 *~

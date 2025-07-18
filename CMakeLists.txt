@@ -8,14 +8,22 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
-
-# Recomended by documentation
-set(CMAKE_BUILD_TYPE Release CACHE STRING "" FORCE)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
 
 find_package(OpenCV REQUIRED core imgcodecs highgui)
 
-add_executable(PoliteCat src/main.cc)
+add_library( ImageBorders STATIC
+  lib/ImageBorders.cc
+)
 
-target_link_libraries(PoliteCat PRIVATE ${OpenCV_LIBS})
+target_include_directories( ImageBorders
+    PUBLIC ${CMAKE_SOURCE_DIR}/include ${OpenCV_INCLUDE_DIRS}
+)
 
-target_include_directories(PoliteCat PRIVATE ${OpenCV_INCLUDE_DIRS})
+target_link_libraries( ImageBorders
+  PUBLIC ${OpenCV_LIBS} 
+)
+
+add_executable(CreateBorders ${CMAKE_SOURCE_DIR}/src/ApplySobelFilter.cc)
+target_link_libraries(CreateBorders PRIVATE ImageBorders)
+

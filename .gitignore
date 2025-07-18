@@ -7,7 +7,7 @@ lib/*.a
 lib/*.so
 build
 
-pictures
+pictures/*
 !pictures/cat.png
 !pictures/bike.jpg
 !pictures/circle.jpg

@@ -21,7 +21,7 @@ int main( int argc, char* argv[] )
 {
 
   // === Check correct usage ===
-  if( argc < 2 or argc > 3 )
+  if( argc < 2 || argc > 3 )
   {
     usage(argv[0]);
     return 1;
@@ -29,7 +29,7 @@ int main( int argc, char* argv[] )
 
   // === Load and check input image ===
   std::filesystem::path inpath( argv[1] );
-  cv::Mat input_image = cv::imread( inpath.c_str(), cv::IMREAD_GRAYSCALE );
+  cv::Mat input_image = cv::imread( inpath.string(), cv::IMREAD_GRAYSCALE );
 
   if(input_image.empty())
   {
@@ -46,7 +46,7 @@ int main( int argc, char* argv[] )
       std::filesystem::path outpath(argv[2]);
       std::string outfile_name = inpath.stem().string() + "_border" + inpath.extension().string();
       outpath /= outfile_name; 
-      cv::imwrite(outpath.c_str(), *borders);
+      cv::imwrite(outpath.string(), *borders);
     }
   else
     {

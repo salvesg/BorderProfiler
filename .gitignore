@@ -12,5 +12,7 @@ pictures/*
 !pictures/bike.jpg
 !pictures/circle.jpg
 
+borders
+
 # Save me from the emacs save files
 *~

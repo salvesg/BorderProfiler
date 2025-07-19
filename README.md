@@ -41,20 +41,24 @@ Configuration should be pretty fast. You can check the text printed to `stdout` 
 make # OPtional -j$(nproc)
 ```
 
-### Build the project
+### Build and run the project
 
-**Note**: This section is work under progress. 
+The project consist on a simple class called `ImageBorders` that inherits from the `cv::Mat` class. **Warnning**: This is designed so it is easier to call `cv::Mat` functions, but `Mat` class does not have a virtual destructor so do not use with polymorphism. 
 
-For the moment, only a test script is available with the project. To compile it, in the root directory of the project run:
+To build the library simple procced as:
 ```bash
 mkdir build && cd build
-```
-Once inside, do:
-```bash
 cmake .. -DOpenCV_DIR=../external/opencv/build
-```
-This will help cmake find the necesary configuration file from our own OpenCV installation. Follow with
-```bash
 make
 ```
-And you will find an executable in the `bin` directory called `PoliteCat`. Execute it to see a very polite cat. Press the `s` key to create a copy of such a polite cat (nice). Press any other key (except the switch-off button) to stop seeing the polite cat (sad).
+This will create the library `lib/libImageBorders.a` and the `bin/CreateBorders`. 
+
+To see the class in action, you can find some examples images in the `pictures` directory. From the root directory, run:
+```bash
+bin/CreateBorders ./pictures/bike.jpg
+```
+and you will be pronted the borders of your image. Close the pop up window or press any key on the terminal to end the program. To save the borders of your image, just run the command again indicating the path where the borders should be saved:
+```bash
+mkdir borders
+bin/CreateBorders ./pictures/bike.jpg ./borders
+```

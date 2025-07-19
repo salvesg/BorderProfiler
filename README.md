@@ -2,6 +2,8 @@
 
 This small projects applies a Sobel filter to an image benefiting from some of the tools available from OpenCV.
 
+It consist on a simple class called `ImageBorders` that inherits from the `cv::Mat` class. **Warnning**: This is designed so it is easier to call `cv::Mat` functions, but `Mat` class does not have a virtual destructor so do not use with polymorphism. The final product is an executable that takes and image and displays its borders, or saves them as a new image.
+
 # Installation
 
 This projects uses some OpenCV libraries, hence the OpenCV repository comes as a submodule of the project. Idelly, if you have a system-wide installation, the needed libraries will be automatically fetched. If this is not the case, I recommend build the minimum requisites together with this project.
@@ -43,8 +45,6 @@ make # OPtional -j$(nproc)
 
 ### Build and run the project
 
-The project consist on a simple class called `ImageBorders` that inherits from the `cv::Mat` class. **Warnning**: This is designed so it is easier to call `cv::Mat` functions, but `Mat` class does not have a virtual destructor so do not use with polymorphism. 
-
 To build the library simple procced as:
 ```bash
 mkdir build && cd build
@@ -68,3 +68,39 @@ mkdir borders
 bin/CreateBorders ./pictures/bike.jpg ./borders
 ```
 To benefit from parallel procesing, you will have to set the number of threads to be used yourself (default: 1). For example, to span 4 parallel workers, simply export the following environment variable_ `export OMP_NUM_THREADS=4`. Notice that performance might saturate for high degrees of parallelization (>4 threads) due to many reason.
+
+## Installing the project on Windows
+
+**Note:** This instruction might not help you set up the project on windows correctly. Opening an issue is recomended in that case.
+
+To install and make the project work on windows you will need some prerequisites.
+ - Make sure you have *Visual Studio* installed with the *Desktop development with C++* workload. Make sure the MSVC compiler and Cmake tools for Windows are included.
+ - While you can download and build OpenCV yourself, you can simply download the precompiled binaries and extract them, for example, to `C:\opencv`.
+ - Download this project manually or using git (you don't need the OpenCV submodule)
+ 
+Open a `x64 Native Tools Command Prompt for VS`, which you can easily acchive by typing the windows key and typing it. Navigate to the project main folder and do:
+```cmd
+mkdir build
+cd build
+```
+Then, configure the project with:
+```cmd
+cmake .. -DOpenCV_DIR="C:/opencv/build"
+```
+Hopefully, configuration will be succesfull, but it will tell you that it is better if you add `C:\opencv\build\x64\vc16\bin` to your `PATH` variable. You can do this with the windows environment manager. (at this point you might as well create the variable `OpenCV_DIR` for the next time you configure it).
+
+Finally, at the same `build` folder, do:
+```cmd
+cmake --build . --config Release
+```
+You will find the resulting executable under `bin\Release` as *BorderProfiler.exe*. Test that it works with:
+```cmd
+bin\Release\BorderProfiler.exe pictures\bike.jpg
+```
+You should see the borders of the bike. Press any key or close the window to end the program. Add an extra folder path to the command line to save the border image to that folder
+
+If you were not prompted otherwise, parallelization through OpenMP is enable. On the command line, you can control the number of threads to use for procesing the image with:
+```cmd
+set OMP_NUM_THREADS=<num of threads desired>
+```
+

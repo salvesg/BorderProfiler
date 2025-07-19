@@ -10,19 +10,31 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
 
-find_package(OpenCV REQUIRED core imgcodecs highgui)
+find_package(OpenCV REQUIRED 
+  COMPONENTS core imgcodecs highgui)
+
 
 add_library( ImageBorders STATIC
   lib/ImageBorders.cc
 )
 
 target_include_directories( ImageBorders
-    PUBLIC ${CMAKE_SOURCE_DIR}/include ${OpenCV_INCLUDE_DIRS}
+  PUBLIC ${CMAKE_SOURCE_DIR}/include ${OpenCV_INCLUDE_DIRS} 
 )
 
 target_link_libraries( ImageBorders
-  PUBLIC ${OpenCV_LIBS} 
+  PUBLIC ${OpenCV_LIBS}
 )
+
+find_package(OpenMP)
+
+if(OpenMP_CXX_FOUND)
+  target_link_libraries( ImageBorders
+    PUBLIC OpenMP::OpenMP_CXX
+  )
+else()
+  message(WARNING "OpenMP for C++ not found. Configuring build w/o parallel support")
+endif()
 
 add_executable(CreateBorders ${CMAKE_SOURCE_DIR}/src/ApplySobelFilter.cc)
 target_link_libraries(CreateBorders PRIVATE ImageBorders)

@@ -5,6 +5,8 @@
 #include<opencv2/imgcodecs.hpp>
 #include<opencv2/highgui.hpp>
 
+#include<omp.h>
+
 #include<cmath>
 #include<iostream>
 #include<memory>

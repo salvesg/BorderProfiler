@@ -42,7 +42,9 @@ void ImageBorders::ApplySobelFilter( const cv::Mat& input, bool ShowTime )
   
   double t = (double)cv::getTickCount();
   
+ 
   // Loop limits set to avoid image top/bottom/right/left borders
+#pragma omp parallel for private(Result_Gx, Result_Gy)
   for( int i = 1; i < input.rows - 1; i++) // Loping on rows
   {
     const uchar* upper_row   = input.ptr<uchar>(i - 1);

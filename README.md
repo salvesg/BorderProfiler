@@ -48,6 +48,11 @@ The project consist on a simple class called `ImageBorders` that inherits from t
 To build the library simple procced as:
 ```bash
 mkdir build && cd build
+```
+If you have [OpenMP](https://www.openmp.org/) installed in your system (comes by default with many gcc installation), parallelization of the border obtention can be done. If not you have been already pronted with a warning during configuration. You can install it simply with `sudo apt install libomp-dev`.
+
+To compile the project do (for system-wide installation ignore the `-DOpenCV_DIR` argument).
+```bash
 cmake .. -DOpenCV_DIR=../external/opencv/build
 make
 ```
@@ -62,3 +67,4 @@ and you will be pronted the borders of your image. Close the pop up window or pr
 mkdir borders
 bin/CreateBorders ./pictures/bike.jpg ./borders
 ```
+To benefit from parallel procesing, you will have to set the number of threads to be used yourself (default: 1). For example, to span 4 parallel workers, simply export the following environment variable_ `export OMP_NUM_THREADS=4`. Notice that performance might saturate for high degrees of parallelization (>4 threads) due to many reason.

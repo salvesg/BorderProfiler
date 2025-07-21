@@ -18,7 +18,7 @@ sudo apt install libgtk2.0-dev pkg-config libcanberra-gtk-module
 
 Next clone the project making sure the submodules are also pulled:
 ```bash
-git clone --recursive git@github.com:salvesg/BorderProfiler.git
+git clone --recursive https://github.com/salvesg/BorderProfiler.git
 ```
 Navigate to the `external` folder, where the OpenCV project should have been cloned to. If it is not there or the folder exist or its empty, you might have forgoted the `--recursive` flag. You can re-initialize the submodules with
 ```bash
@@ -76,7 +76,7 @@ To benefit from parallel procesing, you will have to set the number of threads t
 To install and make the project work on windows you will need some prerequisites.
  - Make sure you have *Visual Studio* installed with the *Desktop development with C++* workload. Make sure the MSVC compiler and Cmake tools for Windows are included.
  - While you can download and build OpenCV yourself, you can simply download the precompiled binaries and extract them, for example, to `C:\opencv`.
- - Download this project manually or using git (you don't need the OpenCV submodule)
+ - Download this project manually or using git: `git clone https://github.com/salvesg/BorderProfiler.git` (you don't need the OpenCV submodule)
  
 Open a `x64 Native Tools Command Prompt for VS`, which you can easily acchive by pressing the windows key and typing it. Navigate to the project main folder and do:
 ```cmd

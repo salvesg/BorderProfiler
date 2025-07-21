@@ -53,7 +53,7 @@ If you have [OpenMP](https://www.openmp.org/) installed in your system (comes by
 
 To compile the project do (for system-wide installation ignore the `-DOpenCV_DIR` argument or make it point to where it is installed, usually in `/usr/local`).
 ```bash
-cmake .. -DOpenCV_DIR=../external/opencv/build
+cmake .. -DOpenCV_DIR=<full_path_to_project>/external/opencv/build
 make
 ```
 This will create the library `lib/libImageBorders.a` and the `bin/CreateBorders`. 

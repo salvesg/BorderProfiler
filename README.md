@@ -2,7 +2,7 @@
 
 This small projects applies a Sobel filter to an image benefiting from some of the tools available from OpenCV.
 
-It consist on a simple class called `ImageBorders` that inherits from the `cv::Mat` class. **Warnning**: This is designed so it is easier to call `cv::Mat` functions, but `Mat` class does not have a virtual destructor so do not use with polymorphism. The final product is an executable that takes and image and displays its borders, or saves them as a new image.
+It consist on a simple class called `ImageBorders` that inherits from the `cv::Mat` class. **Warning**: This is designed so it is easier to call `cv::Mat` functions, but `Mat` class does not have a virtual destructor so do not use with polymorphism. The final product is an executable that takes and image and displays its borders, or saves them as a new image.
 
 # Installation
 
@@ -40,18 +40,18 @@ cmake .. \
 ```
 Configuration should be pretty fast. You can check the text printed to `stdout` to verify that only the desired packages have been set as build targets, and that GTK support has been enabled. Finish building (you can indicate how many CPU cores to use but it is fairly fast).
 ```bash
-make # OPtional -j$(nproc)
+make # Optional -j$(nproc)
 ```
 
 ### Build and run the project
 
-To build the library simple procced as:
+To build the library simply procced from the project root directory as:
 ```bash
 mkdir build && cd build
 ```
-If you have [OpenMP](https://www.openmp.org/) installed in your system (comes by default with many gcc installation), parallelization of the border obtention can be done. If not you have been already pronted with a warning during configuration. You can install it simply with `sudo apt install libomp-dev`.
+If you have [OpenMP](https://www.openmp.org/) installed in your system (comes by default with many gcc installation), parallelization of the border obtention can be done. If not you will be pronted with a warning during configuration. You can install it simply with `sudo apt install libomp-dev`.
 
-To compile the project do (for system-wide installation ignore the `-DOpenCV_DIR` argument).
+To compile the project do (for system-wide installation ignore the `-DOpenCV_DIR` argument or make it point to where it is installed, usually in `/usr/local`).
 ```bash
 cmake .. -DOpenCV_DIR=../external/opencv/build
 make
@@ -67,7 +67,7 @@ and you will be pronted the borders of your image. Close the pop up window or pr
 mkdir borders
 bin/CreateBorders ./pictures/bike.jpg ./borders
 ```
-To benefit from parallel procesing, you will have to set the number of threads to be used yourself (default: 1). For example, to span 4 parallel workers, simply export the following environment variable_ `export OMP_NUM_THREADS=4`. Notice that performance might saturate for high degrees of parallelization (>4 threads) due to many reason.
+To benefit from parallel procesing, you will have to set the number of threads to be used yourself (default: 1). For example, to span 4 parallel workers, simply export the following environment variable `export OMP_NUM_THREADS=4`. Notice that performance might saturate for high degrees of parallelization (>4 threads) due to many reason.
 
 ## Installing the project on Windows
 
@@ -78,7 +78,7 @@ To install and make the project work on windows you will need some prerequisites
  - While you can download and build OpenCV yourself, you can simply download the precompiled binaries and extract them, for example, to `C:\opencv`.
  - Download this project manually or using git (you don't need the OpenCV submodule)
  
-Open a `x64 Native Tools Command Prompt for VS`, which you can easily acchive by typing the windows key and typing it. Navigate to the project main folder and do:
+Open a `x64 Native Tools Command Prompt for VS`, which you can easily acchive by pressing the windows key and typing it. Navigate to the project main folder and do:
 ```cmd
 mkdir build
 cd build

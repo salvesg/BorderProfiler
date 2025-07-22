@@ -4,6 +4,21 @@
 
 #include "ImageBorders/ImageBorders.hh"
 
+
+ImageBorders::ImageBorders( const cv::Mat& input )
+{
+  /**
+   * Construct borders directly from the input image (cv::Mat object)
+   */
+  
+  try {
+    ApplySobelFilter( input ); 
+  }
+  catch( const std::runtime_error& e) {
+    std::cout << " Type error: " << e.what(); 
+  }
+}
+
 void ImageBorders::ApplySobelFilter( const cv::Mat& input, bool ShowTime )
 {
   /**

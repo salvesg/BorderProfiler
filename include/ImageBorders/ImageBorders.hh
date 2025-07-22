@@ -25,12 +25,8 @@ public:
 
   // Public methods
   ImageBorders() = default;
-
-  ImageBorders( const cv::Mat& input )
-  {
-    ApplySobelFilter( input ); 
-  }
-
+  ImageBorders( const cv::Mat& );
+  
   ImageBorders(const ImageBorders&)                = default;
   ImageBorders(ImageBorders&&) noexcept            = default;
   ImageBorders& operator=(const ImageBorders&)     = default;

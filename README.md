@@ -2,7 +2,7 @@
 
 This small projects applies a Sobel filter to an image benefiting from some of the tools available from OpenCV.
 
-It consist on a simple class called `ImageBorders` (see `lib/ImageBorders.cc` for the implementation) that inherits from the `cv::Mat` class. **Warning**: This is designed so it is easier to call `cv::Mat` functions, but `Mat` class does not have a virtual destructor so do not use with polymorphism. The final product is an executable that takes and image and displays its borders, or saves them as a new image.
+It consist on a simple class called `ImageBorders` (see `lib/ImageBorders.cc` for the implementation) that returns the image borders as it is initialized from another image. The final product is an executable that takes and image and displays its borders, or saves them as a new image.
 
 # Installation
 

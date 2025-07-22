@@ -36,22 +36,35 @@ int main( int argc, char* argv[] )
     std::cerr << "Error: Cannot load image or it is empty!" << endl;
     return 2;
   }
+  else
+  {
+    cout << "input image loaded successfuly! [Img. size: "
+	 << ImageBorderUtils::ReturnSize( input_image ) << "]"
+	 << endl;
+  }
   
   // === Create the borders through custom class ===
-  auto borders = ImageBorders::CreateBorders(input_image);
+  ImageBorders Borders( input_image );
 
   // === Save or display produced output ===
   if( argc == 3 )
     {
-      std::filesystem::path outpath(argv[2]);
-      std::string outfile_name = inpath.stem().string() + "_border" + inpath.extension().string();
+      std::filesystem::path outpath( argv[2] );
+
+      std::string outfile_name = inpath.stem().string() + "_border"
+	+ inpath.extension().string();
       outpath /= outfile_name; 
-      cv::imwrite(outpath.string(), *borders);
+
+      cout << "Saving borders to: " << outpath
+	   << " [Img. size: " << ImageBorderUtils::ReturnSize( Borders )<< "]"
+	   << endl;
+
+      cv::imwrite( outpath.string(), Borders.GetBorders() );
     }
   else
     {
       cv::namedWindow( "Borders", cv::WINDOW_AUTOSIZE );
-      cv::imshow( "Borders", *borders);
+      cv::imshow( "Borders", Borders.GetBorders() );
       cv::waitKey();
     }
   

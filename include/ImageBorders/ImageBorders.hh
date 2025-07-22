@@ -11,25 +11,45 @@
 #include<iostream>
 #include<memory>
 
-class ImageBorders : public cv::Mat {
+namespace ImageBorderUtils {
+
+  template <typename T>
+  cv::Size ReturnSize(const T& image) { return image.size(); }
+  
+};
+
+
+class ImageBorders {
 
 public:
 
-  static std::unique_ptr<ImageBorders> CreateBorders( const Mat& );
-
-  // Implement further operation on the borders...
-  
+  // Public methods
   ImageBorders() = default;
-  ImageBorders(const ImageBorders&) = default;
-  ImageBorders(ImageBorders&&) noexcept = default;
-  ImageBorders& operator=(const ImageBorders&) = default;
+
+  ImageBorders( const cv::Mat& input )
+  {
+    ApplySobelFilter( input ); 
+  }
+
+  ImageBorders(const ImageBorders&)                = default;
+  ImageBorders(ImageBorders&&) noexcept            = default;
+  ImageBorders& operator=(const ImageBorders&)     = default;
   ImageBorders& operator=(ImageBorders&&) noexcept = default;
 
+  // Geter functions
+  cv::Mat& GetBorders(){ return _borders; }
+  const cv::Mat& GetBorders() const { return _borders; }
+  
+  cv::Size size() const { return _borders.size(); }
+  
 private:
 
+  // private members:
+  cv::Mat _borders;
   
-  void ApplySobelFilter( const Mat&, bool ShowTime = true );
-   
+  // private methods
+  void ApplySobelFilter( const cv::Mat&, bool ShowTime = true );
+
 };
 
 #endif

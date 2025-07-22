@@ -4,24 +4,6 @@
 
 #include "ImageBorders/ImageBorders.hh"
 
-std::unique_ptr<ImageBorders> ImageBorders::CreateBorders( const cv::Mat& input )
-{
-  /**
-   * Obtains and returns a new image containing the the borders of the input image
-   */
-  
-  auto result = std::unique_ptr<ImageBorders>(new ImageBorders());
-
-    try {
-      result->ApplySobelFilter( input );
-    }
-    catch( const std::runtime_error& e) {
-      std::cout << " Type error: " << e.what(); 
-    }
-
-    return result;
-}
-
 void ImageBorders::ApplySobelFilter( const cv::Mat& input, bool ShowTime )
 {
   /**
@@ -36,7 +18,7 @@ void ImageBorders::ApplySobelFilter( const cv::Mat& input, bool ShowTime )
 
   // The object is created with pixel type float to 
   // allow more exact arithmetics (avoid saturating uchar)
-  this->create( input.size(), CV_32F);
+  _borders.create( input.size(), CV_32F);
   
   float Result_Gx, Result_Gy;
   
@@ -51,7 +33,7 @@ void ImageBorders::ApplySobelFilter( const cv::Mat& input, bool ShowTime )
     const uchar* current_row = input.ptr<uchar>(i);
     const uchar* lower_row   = input.ptr<uchar>(i + 1);
     
-    float* target_row = this->ptr<float>(i);
+    float* target_row = _borders.ptr<float>(i);
     
     for( int j = 1; j < input.cols - 1; j++ ) // Loping on columns
     {
@@ -73,8 +55,8 @@ void ImageBorders::ApplySobelFilter( const cv::Mat& input, bool ShowTime )
   }
 
   // === Safely convert the floats to uchars for correct display
-  cv::normalize(*this, *this, 0, 255, cv::NORM_MINMAX);
-  this->convertTo(*this, CV_8U);
+  cv::normalize(_borders, _borders, 0, 255, cv::NORM_MINMAX);
+  _borders.convertTo(_borders, CV_8U);
   
   t = ((double)cv::getTickCount() - t)/cv::getTickFrequency();
   

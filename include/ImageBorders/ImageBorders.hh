@@ -9,6 +9,7 @@
 
 #include<cmath>
 #include<iostream>
+#include<filesystem>
 #include<memory>
 
 namespace ImageBorderUtils {
@@ -32,6 +33,12 @@ public:
   ImageBorders& operator=(const ImageBorders&)     = default;
   ImageBorders& operator=(ImageBorders&&) noexcept = default;
 
+  // Method to display the borders
+  void Display();
+
+  // Mothod to save the borders
+  void Save( const std::filesystem::path& out_file ){ cv::imwrite( out_file, _borders ); }
+  
   // Geter functions
   cv::Mat& GetBorders(){ return _borders; }
   const cv::Mat& GetBorders() const { return _borders; }

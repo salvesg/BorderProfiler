@@ -1,7 +1,5 @@
 //! includes
 
-#include<filesystem>
-
 #include "ImageBorders/ImageBorders.hh"
 
 using std::cout;
@@ -59,14 +57,12 @@ int main( int argc, char* argv[] )
 	   << " [Img. size: " << ImageBorderUtils::ReturnSize( Borders )<< "]"
 	   << endl;
 
-      cv::imwrite( outpath.string(), Borders.GetBorders() );
+      Borders.Save( outpath );
     }
   else
-    {
-      cv::namedWindow( "Borders", cv::WINDOW_AUTOSIZE );
-      cv::imshow( "Borders", Borders.GetBorders() );
-      cv::waitKey();
-    }
+  {
+    Borders.Display();
+  }
   
   return 0;
   

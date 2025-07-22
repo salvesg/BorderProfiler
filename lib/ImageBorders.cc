@@ -19,6 +19,14 @@ ImageBorders::ImageBorders( const cv::Mat& input )
   }
 }
 
+void ImageBorders::Display()
+{
+      cv::namedWindow( "Borders", cv::WINDOW_AUTOSIZE );
+      cv::imshow( "Borders", _borders );
+      cv::waitKey();  
+}
+
+
 void ImageBorders::ApplySobelFilter( const cv::Mat& input, bool ShowTime )
 {
   /**
